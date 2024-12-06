@@ -55,6 +55,8 @@
 		04A08E4A2C9A676B00578C45 /* MemoryAppUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryAppUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		04A08E5D2C9AA09500578C45 /* BaseOneCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseOneCollectionViewCell.swift; sourceTree = "<group>"; };
 		04A08E5E2C9AA09500578C45 /* BaseOneCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BaseOneCollectionViewCell.xib; sourceTree = "<group>"; };
+		04D4559C2D02A627001DB809 /* MemoryApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MemoryApp.entitlements; sourceTree = "<group>"; };
+		04D4559D2D02A66B001DB809 /* BridgingHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BridgingHeader.h; sourceTree = "<group>"; };
 		9FC3DB8DFD7929B97E2E096F /* Pods-MemoryApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MemoryApp.debug.xcconfig"; path = "Target Support Files/Pods-MemoryApp/Pods-MemoryApp.debug.xcconfig"; sourceTree = "<group>"; };
 		BC32BBC87A50A6B7E7B73B2D /* Pods-MemoryApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MemoryApp.release.xcconfig"; path = "Target Support Files/Pods-MemoryApp/Pods-MemoryApp.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -110,6 +112,7 @@
 		04A08E262C9A676700578C45 /* MemoryApp */ = {
 			isa = PBXGroup;
 			children = (
+				04D4559C2D02A627001DB809 /* MemoryApp.entitlements */,
 				04A08E272C9A676700578C45 /* AppDelegate.swift */,
 				04A08E292C9A676800578C45 /* SceneDelegate.swift */,
 				04A08E5D2C9AA09500578C45 /* BaseOneCollectionViewCell.swift */,
@@ -118,6 +121,7 @@
 				04A08E2D2C9A676800578C45 /* Main.storyboard */,
 				04A08E302C9A676B00578C45 /* Assets.xcassets */,
 				04A08E322C9A676B00578C45 /* LaunchScreen.storyboard */,
+				04D4559D2D02A66B001DB809 /* BridgingHeader.h */,
 				04A08E352C9A676B00578C45 /* Info.plist */,
 			);
 			path = MemoryApp;
@@ -517,13 +521,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = MemoryApp/MemoryApp.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = S477XUK26U;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MemoryApp/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "Brain Game";
+				INFOPLIST_KEY_CFBundleDisplayName = "脑力训练";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -534,7 +539,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.1;
+				MARKETING_VERSION = 5.1;
 				PRODUCT_BUNDLE_IDENTIFIER = render.MemoryApp.com;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -542,6 +547,7 @@
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = /Users/edy/Documents/GitHub/MemoryApp/MemoryApp/BridgingHeader.h;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -553,13 +559,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = MemoryApp/MemoryApp.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = S477XUK26U;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MemoryApp/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "Brain Game";
+				INFOPLIST_KEY_CFBundleDisplayName = "脑力训练";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -570,7 +577,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.1;
+				MARKETING_VERSION = 5.1;
 				PRODUCT_BUNDLE_IDENTIFIER = render.MemoryApp.com;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -578,6 +585,7 @@
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = /Users/edy/Documents/GitHub/MemoryApp/MemoryApp/BridgingHeader.h;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};

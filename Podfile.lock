@@ -1,16 +1,29 @@
 PODS:
+  - Alamofire (5.10.2)
   - IQKeyboardManager (6.5.19)
+  - JCore (4.8.0)
+  - JPush (5.4.0):
+    - JCore (>= 2.0.0)
 
 DEPENDENCIES:
+  - Alamofire
   - IQKeyboardManager
+  - JCore
+  - JPush
 
 SPEC REPOS:
   trunk:
+    - Alamofire
     - IQKeyboardManager
+    - JCore
+    - JPush
 
 SPEC CHECKSUMS:
+  Alamofire: 7193b3b92c74a07f85569e1a6c4f4237291e7496
   IQKeyboardManager: c8665b3396bd0b79402b4c573eac345a31c7d485
+  JCore: 72aeac69a0ba49b9ef6e753cdd2d0f7f18deb15f
+  JPush: 9ebff4e71616d3bd886d358e8e0039d5a00d0d92
 
-PODFILE CHECKSUM: a84c6c9d4dabcec0f143f01d1bbac80300a6b0ff
+PODFILE CHECKSUM: ac9a0d86f178bb58fcc22ad5ff0b892e36c90015
 
-COCOAPODS: 1.15.2
+COCOAPODS: 1.16.2

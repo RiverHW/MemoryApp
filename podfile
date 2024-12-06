@@ -6,5 +6,12 @@ target 'MemoryApp' do
 
     pod 'IQKeyboardManager'
     
+#    pod 'KSAdSDK' ## adn
+#    pod 'Ads-CN-Beta', :subspecs => ['BUAdSDK', 'CSJMediation']
+        
+        pod 'JPush'
+        pod 'JCore'
+        pod 'Alamofire'
+    
 end
 

@@ -1,21 +1,102 @@
 import UIKit
 import AudioToolbox
+import BUAdSDK
+import AppTrackingTransparency
+import Alamofire
+
 private let reuseIdentifier = "Cell"
 
 
-class ViewController: UIViewController,UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout{
+class ViewController: UIViewController,UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,BUNativeExpressBannerViewDelegate{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        hwScre = view.bounds.size.height / view.bounds.size.width
         view.addSubview(mainCollectionView)
         
 
         self.loadData()
-        
+        //初次加载网络更新
+        self.startMonitoringNetworkReachability()
         
 //        self.startTimer()
+        
+        
     }
+    
+    
+    func setAD()  {
+        
+        let confi = BUAdSDKConfiguration.configuration()
+        confi.appID = "5635826"
+        BUAdSDKManager.start(asyncCompletionHandler: { success, error in
+            let delayInSeconds = 1.0
+                DispatchQueue.main.asyncAfter(deadline: .now() + delayInSeconds) {
+                    ATTrackingManager.requestTrackingAuthorization { status in
+                        self.banner.loadAdData()
+                    }
+                }
+        })
+        
+    }
+    
+    var hwScre = 2.1
+    
+    
+    lazy var banner: BUNativeExpressBannerView = {
+        
+        if hwScre > 2.0 {
+            let banner = BUNativeExpressBannerView(slotID: "962375937", rootViewController: self, adSize: CGSize.init(width: 300, height: 150))
+            banner.frame = CGRect(x: (Int(self.view.bounds.size.width) - 300)/2, y: Int(self.view.bounds.size.height) - 180, width: 300, height: 150)
+            banner.delegate = self
+            return banner
+
+        }
+        
+        let banner = BUNativeExpressBannerView(slotID: "962369682", rootViewController: self, adSize: CGSize.init(width: 300, height: 75))
+        banner.frame = CGRect(x: (Int(self.view.bounds.size.width) - 300)/2, y: Int(self.view.bounds.size.height) - 100, width: 300, height: 75)
+        banner.delegate = self
+        return banner
+    }()
+    
+    func nativeExpressBannerAdViewRenderSuccess(_ bannerAdView: BUNativeExpressBannerView) {
+        self.view.addSubview(bannerAdView)
+    }
+    
+    func nativeExpressBannerAdViewRenderFail(_ bannerAdView: BUNativeExpressBannerView, error: (any Error)?) {
+        
+    }
+    
+    func nativeExpressBannerAdView(_ bannerAdView: BUNativeExpressBannerView, didLoadFailWithError error: (any Error)?) {
+        
+    }
+    
+    
+    // MARK: - 初次启动应用网络重置
+    let reachabilityManager = NetworkReachabilityManager()
+
+    func startMonitoringNetworkReachability() {
+        reachabilityManager?.startListening(onQueue: .main, onUpdatePerforming: { [weak self] status in
+                    self?.handleNetworkReachability(status)
+                })
+       }
+
+   func handleNetworkReachability(_ status: NetworkReachabilityManager.NetworkReachabilityStatus) {
+       switch status {
+       case .notReachable:
+           break
+           // 没有网络连接，显示提示信息
+       case .reachable:
+           self.setAD()
+           break
+           // 有网络连接，执行相应操作
+       case .unknown:
+           // 网络状态未知，可以选择不做任何操作或者进行其他处理
+           break
+       }
+   }
+   
+    
     
     var colorArray = NSMutableArray()
     var numberArray = NSMutableArray()
@@ -86,7 +167,7 @@ class ViewController: UIViewController,UICollectionViewDataSource,UICollectionVi
         cell.L.text = String.init(format: "%@", numberArray[indexPath.row] as! String)
         cell.L.font = UIFont.systemFont(ofSize: 40, weight: .bold)
         cell.L.textColor = UIColor.black
-
+//        cell.layer.cornerRadius = 10
         cell.backgroundColor = markColor
         if cell.L.text == "?" {
             cell.L.textColor = UIColor.red
@@ -95,36 +176,38 @@ class ViewController: UIViewController,UICollectionViewDataSource,UICollectionVi
         
         if indexPath.section == 1 {
             textField.frame = cell.bounds
-            textField.placeholder = String.init(format: "level : %ld", level - 1)
+            textField.placeholder = String.init(format: "难度 : %ld", level - 1)
             textField.keyboardType = .numberPad
             textField.isUserInteractionEnabled = false
+            textField.backgroundColor = .white
             if isRemeber {
                 textField.placeholder = "? = "
                 textField.isUserInteractionEnabled = true
+                textField.backgroundColor = .systemGray5
+
             }
-            
-            textField.backgroundColor = .systemGray5
+            cell.L.text = ""
             cell.contentView.addSubview(textField)
         }else if indexPath.section == 2{
             cell.L.font = UIFont.systemFont(ofSize: 25, weight: .bold)
 
-            cell.L.text = "我记住了"
+            cell.L.text = "我记住数字了"
 
             
             
-            if let languageCode = Locale.current.languageCode?.contains("en") {
-                cell.L.text = "Got it"
-
-            }
+//            if let languageCode = Locale.current.languageCode?.contains("en") {
+//                cell.L.text = "Got it"
+//
+//            }
             
             if isRemeber {
                 cell.L.text = "提交"
 
                 
-                if let languageCode = Locale.current.languageCode?.contains("en") {
-                    cell.L.text = "Submit"
-
-                }
+//                if let languageCode = Locale.current.languageCode?.contains("en") {
+//                    cell.L.text = "Submit"
+//
+//                }
 
             }
             cell.L.textColor = .black
@@ -255,13 +338,13 @@ class ViewController: UIViewController,UICollectionViewDataSource,UICollectionVi
         
    
         
-        if let languageCode = Locale.current.languageCode?.contains("en") {
-            title = "Challenge failure"
-            content = "Highest Score"
-        }
+//        if let languageCode = Locale.current.languageCode?.contains("en") {
+//            title = "Challenge failure"
+//            content = "Highest Score"
+//        }
         
         let alertController = UIAlertController.init(title: title, message: String.init(format: "%@ : %ld",content, level - 2 ), preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "Restart", style: .default, handler: {
+        let okAction = UIAlertAction(title: "重新开始", style: .default, handler: {
             action in
             self.level = 2
             self.isRemeber = false
@@ -294,7 +377,7 @@ class ViewController: UIViewController,UICollectionViewDataSource,UICollectionVi
           didSet {
 //              print("剩余时间: \(count)秒")
               
-              markL.text = String.init(format: "Level : %ld     Time : %ld", level,count)
+              markL.text = String.init(format: "难度 : %ld     Time : %ld", level,count)
 
               if count < 0 {
                   stopTimer()
